@@ -1,1 +1,1 @@
-BlumCore v1.0.25 - BSD License
+BlumCore v1.0.25 - Apache License 2.0
