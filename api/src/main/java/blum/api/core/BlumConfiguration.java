@@ -1,8 +1,7 @@
-package blum.core;
+package blum.api.core;
 
 import blum.api.configuration.ConfigurationRoot;
 import blum.api.configuration.annotation.Named;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
