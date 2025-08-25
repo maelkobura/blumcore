@@ -6,6 +6,7 @@ import blum.api.core.BlumCore;
 import blum.api.services.ServicesManager;
 import blum.api.core.BlumConfiguration;
 import blum.core.configuration.CoreConfigurationService;
+import blum.core.database.CoreDatabaseService;
 import blum.core.endpoints.CoreEndpoint;
 import blum.core.library.CoreLibraryService;
 import blum.core.network.CoreGatewayService;
@@ -59,8 +60,9 @@ public class BlumSystem implements BlumCore {
     }
 
     private void loadCoreServices() {
+        servicesManager.registerService(CoreDatabaseService.class);
         servicesManager.registerService(CoreGatewayService.class);
-        servicesManager.registerService(CoreLibraryService.class);
+        //servicesManager.registerService(CoreLibraryService.class); //disabiling library service for rework database
     }
 
     private void registerCoreEndpoints() {
