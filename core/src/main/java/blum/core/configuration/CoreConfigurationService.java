@@ -78,12 +78,14 @@ public class CoreConfigurationService implements Service, ConfigurationService {
         }
     }
 
+    @Override
     public void reload() throws ServiceStartException {
         log.info("Reloading configurations");
         loadConfigurations();
     }
 
-    public <T extends ConfigurationRoot> T loadConfiguration(String name, Class<T> type) {
+    @Override
+    public <T extends ConfigurationRoot> T loadConfiguration(String name, Class<T> type) throws Exception {
         try {
             Config config = getConfiguration(name);
             return mapper.parseConfigurationPart(config.root(), type, name);
@@ -93,6 +95,7 @@ public class CoreConfigurationService implements Service, ConfigurationService {
         }
     }
 
+    @Override
     public <T extends ConfigurationRoot> T createConfiguration(String name, Class<T> config) throws Exception {
         T obj = reflectionHelper.createInstance(config, name);
         saveConfiguration(obj);
@@ -107,7 +110,7 @@ public class CoreConfigurationService implements Service, ConfigurationService {
         return config;
     }
 
-
+    @Override
     public <T extends ConfigurationRoot> void saveConfiguration(T configuration) throws IOException, IllegalAccessException {
         ConfigObject obj = mapper.toConfig(configuration);
         String name = configuration.file;
@@ -132,12 +135,12 @@ public class CoreConfigurationService implements Service, ConfigurationService {
         field.set(target, value);
     }
 
-    // Méthode utile pour les tests
+    @Override
     public boolean hasConfiguration(String name) {
         return configMap.containsKey(name);
     }
 
-    // Méthode utile pour les tests et le debugging
+    @Override
     public int getConfigurationCount() {
         return configMap.size();
     }
@@ -147,9 +150,6 @@ public class CoreConfigurationService implements Service, ConfigurationService {
         log.info("Stopping configuration service");
         configMap.clear();
     }
-
-
-
-    // Classe helper pour la réflexion (facilite les tests)
+    
 
 }
