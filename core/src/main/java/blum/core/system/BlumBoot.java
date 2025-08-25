@@ -1,15 +1,10 @@
-package blum.core;
+package blum.core.system;
 
+import blum.api.core.BlumConfiguration;
 import blum.api.services.ServicesManager;
-import blum.core.configuration.CoreConfigurationService;
-import blum.core.endpoints.CoreEndpoint;
-import blum.core.library.CoreLibraryService;
-import blum.core.network.CoreGatewayService;
-import blum.core.services.CoreServicesManager;
 import blum.core.util.VersionUtil;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -18,10 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 
 @Slf4j
-public class CoreSystem {
+public class BlumBoot {
 
     public static final String VERSION = VersionUtil.getVersion();
 
@@ -62,34 +56,11 @@ public class CoreSystem {
             rootLogger.setLevel(Level.DEBUG);
         }
 
-        int serviceThreadsCount = Integer.parseInt(serviceThreadsCountOption.value(options));
-
         if (options.has("safe-mode")) {
             log.info("Safe mode enabled - external plugins disabled");
         }
 
-        log.info("Service threads: {}", serviceThreadsCount);
-
-        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->
-        {
-            log.error("Uncaught exception:", throwable);
-        });
-
-        servicesManager = new CoreServicesManager(serviceThreadsCount);
-
-        servicesManager.registerService(CoreConfigurationService.class);
-
-        CoreConfigurationService confService = servicesManager.getService("configuration", CoreConfigurationService.class);
-
-        if(confService.hasConfiguration("core")) {
-            configuration = confService.loadConfiguration("core", BlumConfiguration.class);
-        }else {
-            configuration = confService.createConfiguration("core", BlumConfiguration.class);
-        }
-
-        servicesManager.registerService(CoreGatewayService.class);
-        servicesManager.registerService(CoreLibraryService.class);
-        servicesManager.getService("gateway", CoreGatewayService.class).registerEndpoints(new CoreEndpoint());
+        BlumSystem.init(options, Integer.parseInt(options.valueOf(serviceThreadsCountOption)));
 
     }
 

@@ -1,20 +1,15 @@
 package blum.core.configuration;
 
-import blum.api.configuration.ConfigurationPart;
 import blum.api.configuration.ConfigurationRoot;
 import blum.api.configuration.ConfigurationService;
-import blum.api.configuration.annotation.Named;
-import blum.api.exception.ServiceInitializationException;
 import blum.api.exception.ServiceStartException;
 import blum.api.services.Service;
 import blum.api.services.annotation.ServiceDescriptor;
-import blum.core.CoreSystem;
 import blum.core.configuration.loader.ConfigurationLoader;
-import blum.core.configuration.loader.ConfigurationSerializer;
 import blum.core.configuration.loader.FileSystemConfigurationLoader;
 import blum.core.configuration.loader.ReflectionHelper;
+import blum.core.system.BlumBoot;
 import com.typesafe.config.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +18,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -50,7 +41,7 @@ public class CoreConfigurationService implements Service, ConfigurationService {
 
     public CoreConfigurationService() {
         this(new FileSystemConfigurationLoader(), new ReflectionHelper());
-        this.rootDirectory = CoreSystem.CONFIGURATION_DIR;
+        this.rootDirectory = BlumBoot.CONFIGURATION_DIR;
         this.rootDirectory.mkdir();
     }
 

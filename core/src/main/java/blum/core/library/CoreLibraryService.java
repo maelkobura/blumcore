@@ -4,12 +4,10 @@ import blum.api.exception.ServiceStartException;
 import blum.api.library.LibraryService;
 import blum.api.services.Service;
 import blum.api.services.annotation.ServiceDescriptor;
-import blum.core.CoreSystem;
+import blum.core.system.BlumBoot;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +26,8 @@ public class CoreLibraryService implements Service, LibraryService {
 
     @Override
     public void start() throws ServiceStartException {
-        CoreSystem.DATA_DIR.mkdir();
-        this.gameDatabaseFile = new File(CoreSystem.DATA_DIR, "games.db");
+        BlumBoot.DATA_DIR.mkdir();
+        this.gameDatabaseFile = new File(BlumBoot.DATA_DIR, "games.db");
         this.handlerMap = new HashMap<>();
 
         this.handlerMap.put("game-metadata", DatabaseHandler.create(gameDatabaseFile, "game-metadata"));

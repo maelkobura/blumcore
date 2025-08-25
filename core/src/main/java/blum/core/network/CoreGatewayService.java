@@ -1,18 +1,17 @@
 package blum.core.network;
 
+import blum.api.core.Blum;
 import blum.api.exception.ServiceStartException;
 import blum.api.network.GatewayService;
 import blum.api.network.annotations.Endpoints;
 import blum.api.network.annotations.Request;
 import blum.api.services.Service;
 import blum.api.services.annotation.ServiceDescriptor;
-import blum.core.CoreSystem;
 import lombok.Getter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,7 +35,7 @@ public class CoreGatewayService implements Service, GatewayService {
     public void start() throws ServiceStartException {
         endpoints = new ConcurrentHashMap<>();
 
-        server = new Server(CoreSystem.getConfiguration().getNetworkPort());
+        server = new Server(Blum.getCoreConfiguration().getNetworkPort());
         httpHandler = new CoreHttpHandler(this);
 
 
