@@ -92,9 +92,13 @@ public class CoreServicesManager implements ServicesManager {
             progress = false;
             for (Map.Entry<ServiceDescriptor, Class<? extends Service>> entry : pendingServices.entrySet()) {
                 if(canLoadService(entry.getKey()) && !loaded.contains(entry.getKey())) {
-                    loadService(entry.getKey(), entry.getValue());
-                    loaded.add(entry.getKey());
-                    progress = true;
+                    try {
+                        loadService(entry.getKey(), entry.getValue());
+                        loaded.add(entry.getKey());
+                        progress = true;
+                    }catch (ServiceInitializationException e) {
+                        log.error("Failed to start service ({})", entry.getKey().name(), e);
+                    }
                 }
             }
         } while (progress && !loaded.isEmpty());
@@ -115,7 +119,7 @@ public class CoreServicesManager implements ServicesManager {
         return Arrays.stream(descriptor.dependencies()).allMatch(this::hasService);
     }
 
-    private void loadService(ServiceDescriptor descriptor, Class<? extends Service> clazz) {
+    private void loadService(ServiceDescriptor descriptor, Class<? extends Service> clazz) throws ServiceInitializationException {
         log.info("Loading {} ({})...", descriptor.displayName(), descriptor.name());
 
         Service service;
