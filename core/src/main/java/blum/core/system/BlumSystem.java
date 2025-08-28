@@ -62,7 +62,7 @@ public class BlumSystem implements BlumCore {
     private void loadCoreServices() {
         servicesManager.registerService(CoreDatabaseService.class);
         servicesManager.registerService(CoreGatewayService.class);
-        //servicesManager.registerService(CoreLibraryService.class); //disabiling library service for rework database
+        servicesManager.registerService(CoreLibraryService.class);
     }
 
     private void registerCoreEndpoints() {
