@@ -1,4 +1,4 @@
-package blum.api.configuration.annotation;
+package blum.api.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

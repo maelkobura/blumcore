@@ -1,12 +1,11 @@
 package blum.test.core.configuration;
 
 import blum.api.configuration.ConfigurationRoot;
-import blum.api.configuration.annotation.Named;
+import blum.api.annotation.Named;
 import blum.core.configuration.ConfigurationMapper;
 import blum.core.configuration.loader.ReflectionHelper;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigRenderOptions;
 import com.typesafe.config.ConfigValueFactory;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;
