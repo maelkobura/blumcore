@@ -21,6 +21,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
     testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
+    implementation("org.slf4j:slf4j-api:1.7.25")
 }
 
 tasks.test {
