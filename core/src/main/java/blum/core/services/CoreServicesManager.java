@@ -33,7 +33,7 @@ public class CoreServicesManager implements ServicesManager {
     }
 
     @Override
-    public synchronized void registerService(Class<?> service) {
+    public synchronized void registerService(Class<? extends Service> service) {
         if(shutdown) {
             throw new IllegalStateException("ServicesManager has been shutdown");
         }
@@ -204,6 +204,13 @@ public class CoreServicesManager implements ServicesManager {
     @Override
     public Iterator<Service> getServices() {
         return new ArrayList<>(services.values()).iterator();
+    }
+
+    @Override
+    public String getServiceName(Class<? extends Service> service) {
+        ServiceDescriptor description = service.getAnnotation(ServiceDescriptor.class);
+        if(description == null) return "unknown";
+        return description.name();
     }
 
     @Override
