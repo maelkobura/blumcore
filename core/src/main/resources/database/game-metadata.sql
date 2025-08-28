@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS game_metadata (
+CREATE TABLE IF NOT EXISTS metadata (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   sort_name TEXT,
@@ -15,12 +15,6 @@ CREATE TABLE IF NOT EXISTS game_metadata (
   pegi TEXT,
   region TEXT,
   source TEXT,
-  progression TEXT,
-  my_rating INTEGER,
   press_rating INTEGER,
-  community_rating INTEGER,
-  icon TEXT,
-  logo TEXT,
-  cover TEXT,
-  background TEXT
+  community_rating INTEGER
 );
