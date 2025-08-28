@@ -2,14 +2,12 @@ package blum.core.configuration;
 
 import blum.api.configuration.ConfigurationPart;
 import blum.api.configuration.ConfigurationRoot;
-import blum.api.configuration.annotation.Named;
+import blum.api.annotation.Named;
 import blum.core.configuration.loader.ReflectionHelper;
 import com.typesafe.config.*;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ConfigurationMapper {
 
