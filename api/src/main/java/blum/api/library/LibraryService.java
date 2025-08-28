@@ -1,4 +1,6 @@
 package blum.api.library;
 
-public interface LibraryService {
+import blum.api.services.Service;
+
+public interface LibraryService extends Service {
 }
