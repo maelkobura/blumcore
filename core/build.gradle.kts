@@ -45,6 +45,8 @@ dependencies {
 
     implementation("org.xerial:sqlite-jdbc:3.46.0.0")
 
+    implementation("io.github.classgraph:classgraph:4.8.126")
+
     implementation(project(":api"))
 }
 
