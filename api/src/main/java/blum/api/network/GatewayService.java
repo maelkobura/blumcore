@@ -1,6 +1,8 @@
 package blum.api.network;
 
-public interface GatewayService {
+import blum.api.services.Service;
+
+public interface GatewayService extends Service {
 
     public void registerEndpoints(Object obj);
 
